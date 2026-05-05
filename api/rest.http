@@ -1,0 +1,74 @@
+
+### GET Users All
+GET http://localhost:3000/api/users
+
+### GET User/id
+GET http://localhost:3000/api/users/15
+Content-Type: application/json
+
+{
+  "id": "8",
+  "username": "newname"
+}
+
+### POST Create User {}
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "top3",
+  "email": "top3@.com",
+  "password": "1"
+}
+
+
+### PUT Update User/:id {}
+PUT http://localhost:3000/api/users/15
+Content-Type: application/json
+
+{
+  "username": "id8",
+  "email": "new@mail.com"
+}
+
+
+### DELETE User/:id
+DELETE http://localhost:3000/api/users/14
+Content-Type: application/json
+### GET Users All
+GET http://localhost:3000/api/users
+
+
+# ===========================
+# Authentication 
+# ===========================
+
+### Auth Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username":  "top2",
+    "password": "1"
+}
+
+#### Signup
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+
+### Change password
+PUT http://localhost:3000/api/auth/change-password/16
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaWF0IjoxNzc3OTczNjI2LCJleHAiOjE3NzgwNjAwMjZ9.Hn4sBul8GCEScLJQomEuFsGJxGdfYYiWDIJ9663V8u4
+Content-Type: application/json
+
+{
+  "old_password": "123456",
+  "new_password": "123456"
+}

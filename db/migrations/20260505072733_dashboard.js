@@ -4,13 +4,17 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("dashboard", (table) => {
-    table.increments("dashboard_id").primary();
-    table.string("dashboard_name").notNullable();
-    table.float("temperature").notNullable();
-    table.float("humidity").notNullable();
-    table.float("ph").notNullable();
+    table.increments("dashboard_id");
 
-    table.timestamp("time").defaultTo(knex.raw("CURRENT_TIMESTAMP")); // บันทึกเวลาปัจจุบันให้อัตโนมัติ
+    table.integer("farm_id").unsigned().nullable();
+
+    table.string("dashboard_name").notNullable().index();
+
+    table.decimal("temperature", 5, 2).notNullable();
+    table.decimal("humidity", 5, 2).notNullable();
+    table.decimal("ph", 4, 2).notNullable();
+
+    table.timestamp("time").defaultTo(knex.fn.now());
 
     table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
     table
@@ -23,4 +27,6 @@ exports.up = function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {};
+exports.down = function (knex) {
+  return knex.schema.dropTable("dashboard");
+};

@@ -56,3 +56,19 @@ table
   .timestamp("updated_at")
   .defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
 ```
+
+```npx
+npx knex migrate:rollback --all
+```
+
+```
+npx knex migrate:latest
+```
+
+```
+npx knex migrate:up
+```
+
+```
+npx knex migrate:down
+```

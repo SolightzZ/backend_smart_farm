@@ -11,7 +11,7 @@ module.exports = {
       port: 3306,
       user: "root",
       password: "66040233122",
-      database: "test_DB",
+      database: "adminfarm",
     },
     migrations: {
       directory: "./db/migrations",
