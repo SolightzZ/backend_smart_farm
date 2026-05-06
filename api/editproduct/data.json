@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "plantName": "ข้าว",
+      "quantity": 1200,
+      "rai": 15,
+      "image": "https://placehold.co/600x400"
+    },
+    {
+      "plantName": "มันสำปะหลัง",
+      "quantity": 850,
+      "rai": 22,
+      "image": "https://placehold.co/600x400"
+    },
+    {
+      "plantName": "อ้อย",
+      "quantity": 1500,
+      "rai": 30,
+      "image": "https://placehold.co/600x400"
+    }
+  ]
+}

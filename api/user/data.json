@@ -1,0 +1,28 @@
+{
+  "user": [
+    {
+      "name": "James_1",
+      "lastname": "Smith_1",
+      "email": "james.1@example.com",
+      "phone": "0800000001",
+      "role": "admin",
+      "zone": "Bangkok"
+    },
+    {
+      "name": "Robert_2",
+      "lastname": "Johnson_2",
+      "email": "robert.2@example.com",
+      "phone": "0800000002",
+      "role": "user",
+      "zone": "Chiang Mai"
+    },
+    {
+      "name": "John_3",
+      "lastname": "Williams_3",
+      "email": "john.3@example.com",
+      "phone": "0800000003",
+      "role": "admin",
+      "zone": "Phuket"
+    }
+  ]
+}

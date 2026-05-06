@@ -1,0 +1,55 @@
+{
+  "farms": [
+    {
+      "farmName": "Green Valley Farm",
+      "location": {
+        "lat": 13.7563,
+        "lng": 100.5018
+      },
+      "crop": "ผักสลัด",
+      "areaSize": 5,
+      "sensorCount": 4,
+      "deviceCount": 2,
+      "environment": {
+        "sunlight": 75,
+        "temperature": 30,
+        "humidity": 65,
+        "waterLevel": 80
+      }
+    },
+    {
+      "farmName": "Green Valley Farm",
+      "location": {
+        "lat": 13.7563,
+        "lng": 100.5018
+      },
+      "crop": "ผักมะโหว",
+      "areaSize": 5,
+      "sensorCount": 4,
+      "deviceCount": 2,
+      "environment": {
+        "sunlight": 75,
+        "temperature": 30,
+        "humidity": 65,
+        "waterLevel": 80
+      }
+    },
+    {
+      "farmName": "Sunrise Organic",
+      "location": {
+        "lat": 14.02,
+        "lng": 100.525
+      },
+      "crop": "มะเขือเทศ",
+      "areaSize": 8,
+      "sensorCount": 2,
+      "deviceCount": 2,
+      "environment": {
+        "sunlight": 85,
+        "temperature": 32,
+        "humidity": 60,
+        "waterLevel": 70
+      }
+    }
+  ]
+}

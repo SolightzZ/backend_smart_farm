@@ -5,17 +5,14 @@
 exports.up = function (knex) {
   return knex.schema.createTable("farms", (table) => {
     table.increments("farm_id");
-
     table.integer("user_id").unsigned().nullable();
 
-    table.string("farm_name").notNullable();
+    table.string("farmName").notNullable();
     table.json("location").notNullable();
-
     table.string("crop").notNullable();
-
-    table.decimal("area_size", 10, 2).notNullable();
-    table.integer("sensor_count").defaultTo(0);
-
+    table.decimal("areaSize", 10, 2).notNullable();
+    table.integer("sensorCount").defaultTo(0);
+    table.integer("deviceCount").defaultTo(0);
     table.json("environment").notNullable();
 
     table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));

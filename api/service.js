@@ -3,11 +3,13 @@ const auth = require("./authentication/Route");
 const dashboard = require("./dashboard/Route");
 const editfarm = require("./editfarm/Route");
 const editproduct = require("./editproduct/Route");
+const profile = require("./profile/Route");
 
 module.exports = (app) => {
   app.use("/api", user);
   app.use("/api", auth);
-  app.use("api", dashboard);
+  app.use("/api", dashboard);
   app.use("/api", editfarm);
   app.use("/api", editproduct);
+  app.use("/api", profile);
 };

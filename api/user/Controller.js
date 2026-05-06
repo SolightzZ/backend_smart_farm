@@ -64,7 +64,7 @@ class userController {
   // POST /users - create
   async postCreateUser(req, res) {
     try {
-      const { username, email, password } = req.body;
+      const { username, email, password, gender, phone } = req.body;
       if (!username || !email || !password) {
         return res.status(400).json({
           message: "กรอกข้อมูลไม่ครบ",
@@ -85,19 +85,53 @@ class userController {
         });
       }
 
+      if (password.length < 6) {
+        return res.status(400).json({
+          message: "password ต้องอย่างน้อย 6 ตัว",
+        });
+      }
+
+      if (phone) {
+        const existPhone = await db("users").where({ phone }).first();
+        if (existPhone) {
+          return res.status(409).json({
+            message: "phone นี้ถูกใช้แล้ว",
+          });
+        }
+
+        if (phone.length < 10) {
+          return res.status(400).json({
+            message: "phone ต้องอย่างน้อย 10 ตัว",
+          });
+        }
+      }
+
+      if (gender && gender !== "male" && gender !== "female") {
+        return res.status(400).json({
+          message: "gender ต้องเป็น male หรือ female",
+        });
+      }
+
       const hashpassword = await bcrypt.hash(password, 10);
       const [id] = await db("users").insert({
         username,
         email,
         password: hashpassword,
-        gender: null,
+        gender: gender || null,
+        phone: phone || null,
       });
 
       return res.status(201).json({
         success: true,
-        user_id: id,
-        username,
-        email,
+        user_id: {
+          id,
+          username,
+          password,
+          password: hashpassword,
+          email,
+          gender,
+          phone,
+        },
       });
     } catch (err) {
       if (err.code === "ER_DUP_ENTRY") {
@@ -105,7 +139,7 @@ class userController {
           message: "username หรือ email ซ้ำ",
         });
       }
-      console.err("Postcreateuser: ", err);
+      console.error("Postcreateuser: ", err);
       return res.status(500).json({ message: err.message });
     }
   }

@@ -1,0 +1,40 @@
+{
+  "profile": [
+    {
+      "firstName": "สมชาย",
+      "lastName": "ใจดี",
+      "gender": "ชาย",
+      "role": "เกษตรกร",
+      "address": "123 หมู่ 4 ต.บ้านใหม่ อ.เมือง จ.ขอนแก่น",
+      "phone": "0812345678",
+      "email": "somchai@example.com",
+      "registerDate": "2026-01-15",
+      "lastActive": "2026-04-08 14:32",
+      "Avata": "A"
+    },
+    {
+      "firstName": "สุดา",
+      "lastName": "ทองสุข",
+      "gender": "หญิง",
+      "role": "ผู้ดูแลระบบ",
+      "address": "88/9 ต.สุเทพ อ.เมือง จ.เชียงใหม่",
+      "phone": "0891122334",
+      "email": "suda@example.com",
+      "registerDate": "2025-12-20",
+      "lastActive": "2026-04-09 09:10",
+      "Avata": "B"
+    },
+    {
+      "firstName": "อนันต์",
+      "lastName": "ศรีสุข",
+      "gender": "ชาย",
+      "role": "เจ้าหน้าที่",
+      "address": "45 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ",
+      "phone": "0869988776",
+      "email": "anan@example.com",
+      "registerDate": "2026-02-11",
+      "lastActive": "2026-04-09 08:45",
+      "Avata": "C"
+    }
+  ]
+}

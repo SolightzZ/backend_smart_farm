@@ -7,8 +7,7 @@ exports.up = function (knex) {
     table.increments("dashboard_id");
 
     table.integer("farm_id").unsigned().nullable();
-
-    table.string("dashboard_name").notNullable().index();
+    table.string("farmName").notNullable().index();
 
     table.decimal("temperature", 5, 2).notNullable();
     table.decimal("humidity", 5, 2).notNullable();

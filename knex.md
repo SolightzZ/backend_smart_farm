@@ -57,6 +57,10 @@ table
   .defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
 ```
 
+```
+knex migrate:make create_name
+```
+
 ```npx
 npx knex migrate:rollback --all
 ```
