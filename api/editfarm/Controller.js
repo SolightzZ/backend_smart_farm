@@ -72,16 +72,26 @@ class editfarmController {
 
       const [id] = await db("farms").insert({
         farm_name,
-        location: JSON.stringify(location),
         crop,
-        area_size: areaSize,
-        sensor_count: sensorCount,
+        areaSize,
+        sensorCount,
+        deviceCount,
         environment: JSON.stringify(environment),
+        location: JSON.stringify(location),
       });
 
       return res.status(201).json({
         success: true,
-        result: { id, farm_name, location, crop, areaSize, sensorCount },
+        result: {
+          id,
+          farm_name,
+          crop,
+          areaSize,
+          sensorCount,
+          deviceCount,
+          environment,
+          location,
+        },
       });
     } catch (error) {
       if (error.code === "ER_DUP_ENTRY") {
@@ -91,6 +101,80 @@ class editfarmController {
       }
       console.error("postCreateEditfarm: ", error);
       return res.status(500).json({ message: error.message });
+    }
+  }
+
+  async putUpdateEditfarm(req, res) {
+    try {
+      const { id } = req.params;
+
+      const {
+        farm_name,
+        location,
+        crop,
+        areaSize,
+        sensorCount,
+        deviceCount,
+        environment,
+      } = req.body;
+
+      if (!farm_name) {
+        return res.status(400).json({
+          message: "กรอกข้อมูลไม่ครบ farm_name",
+        });
+      }
+
+      if (!location) {
+        return res.status(400).json({
+          message: "กรอกข้อมูลไม่ครบ location",
+        });
+      }
+
+      if (!crop) {
+        return res.status(400).json({
+          message: "กรอกข้อมูลไม่ครบ crop",
+        });
+      }
+
+      const updated = await db("farms")
+        .where({ farm_id: id })
+        .update({
+          farm_name,
+          crop,
+          areaSize,
+          sensorCount,
+          deviceCount,
+          environment: JSON.stringify(environment),
+          location: JSON.stringify(location),
+          updated_at: db.fn.now(),
+        });
+
+      // ไม่มีข้อมูลถูก update
+      if (!updated) {
+        return res.status(404).json({
+          message: "ไม่พบฟาร์ม",
+        });
+      }
+
+      return res.json({
+        success: true,
+        result: {
+          farm_id: id,
+          farm_name,
+          crop,
+          areaSize,
+          sensorCount,
+          deviceCount,
+          environment,
+          location,
+        },
+      });
+    } catch (error) {
+      console.error("putUpdateEditfarm:", error);
+
+      return res.status(500).json({
+        message: error.message,
+      });
     }
   }
 }

@@ -1,49 +1,3 @@
-# ===========================
-# User
-# ===========================
-
-### GET Users All
-GET http://localhost:3000/api/users
-
-### GET User/id
-GET http://localhost:3000/api/users/15
-Content-Type: application/json
-
-{
-  "id": "8",
-  "username": "newname"
-}
-
-### POST Create User {}
-POST http://localhost:3000/api/users
-Content-Type: application/json
-
-{
-  "username": "admin3",
-  "email": "admin3@.com",
-  "password": "admin123",
-  "gender": "male",
-  "phone": "0800000001"
-}
-
-
-
-
-### PUT Update User/:id {}
-PUT http://localhost:3000/api/users/15
-Content-Type: application/json
-
-{
-  "username": "id8",
-  "email": "new@mail.com"
-}
-
-
-### DELETE User/:id
-DELETE http://localhost:3000/api/users/14
-Content-Type: application/json
-### GET Users All
-GET http://localhost:3000/api/users
 
 
 # ===========================
@@ -55,8 +9,8 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "username":  "top2",
-    "password": "1"
+    "username":  "admin",
+    "password": "admin123"
 }
 
 #### Signup
@@ -64,9 +18,9 @@ POST http://localhost:3000/api/auth/signup
 Content-Type: application/json
 
 {
-  "username": "",
-  "email": "",
-  "password": ""
+  "username": "admin",
+  "email": "admin@hotmail.com",
+  "password": "admin123"
 }
 
 
@@ -82,7 +36,7 @@ Content-Type: application/json
 
 # ===========================
 # Dashboards
-# ===========================
+# =========================== 
 ### GET 
 GET http://localhost:3000/api/getdashboards
 
@@ -92,11 +46,11 @@ POST http://localhost:3000/api/postdashboards
 Content-Type: application/json
 
 {
-  "dashboard_name": "testa", 
-  "farm_id": "11",
-  "temperature": "99",
-  "humidity":"99",
-  "ph": "99"
+  "farm_id": "1",
+  "farm_name": "test",
+  "temperatures": "-10",
+  "humidity":"-10",
+  "ph": "-10"
 }
 
 
@@ -113,14 +67,24 @@ POST http://localhost:3000/api/postfarm
 Content-Type: application/json
 
 {
-  "farm_name": "ฟาร์มของฉัน",
-  "location": { "province": "ขอนแก่น" }, 
-  "crop": "ข้าว",
-  "areaSize": "10",
-  "deviceCount": "10",
-  "sensorCount": "5",
-  "environment": { "type": "Outdoor" }
+  "farm_name": "Herbal Smart Greenhouse",
+  "crop": "โหระพา",
+  "areaSize": "6.80",
+  "deviceCount": 9,
+  "sensorCount": 6,
+  "environment": {
+    "sunlight": "Greenhouse",
+    "temperature": "27°C",
+    "humidity": "74%",
+    "waterLevel": "88%"
+  },
+  "location": {
+    "lat": 17.4138,
+    "lng": 102.7870
+  }
 }
+
+
 
 
 
@@ -142,25 +106,5 @@ Content-Type: application/json
    "image":""
 }
 
-# ===========================
-# Profile
-# ===========================
 
-### GET 
-GET http://localhost:3000/api/getprofile
-
-### POST
-POST http://localhost:3000/api/postprofile
-Content-Type: application/json
-
-{
-  "firstName": "สมชาย",
-  "lastName": "ใจดี",
-  "gender": "male", 
-  "role": "user",
-  "address": "123 หมู่ 4...",
-  "phone": "0812345678",
-  "email": "somcasdasdsdasdhaiggg@example.com",
-  "avatar": "A"
-}
 

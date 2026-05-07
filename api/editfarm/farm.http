@@ -1,0 +1,225 @@
+# ===========================
+# Farms
+# ===========================
+### GET 
+GET http://localhost:3000/api/getfarm
+
+### POST 1
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Green Rice Farm",
+  "crop": "ข้าวหอมมะลิ",
+  "areaSize": "25.50",
+  "deviceCount": 12,
+  "sensorCount": 8,
+  "environment": {
+    "sunlight": "Outdoor",
+    "temperature": "33°C",
+    "humidity": "71%",
+    "waterLevel": "80%"
+  },
+  "location": {
+    "lat": 16.4419,
+    "lng": 102.8350
+  }
+}
+
+### POST 2
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Organic Corn Valley",
+  "crop": "ข้าวโพด",
+  "areaSize": "40.00",
+  "deviceCount": 20,
+  "sensorCount": 15,
+  "environment": {
+    "sunlight": "Full Sun",
+    "temperature": "35°C",
+    "humidity": "60%",
+    "waterLevel": "55%"
+  },
+  "location": {
+    "lat": 15.8700,
+    "lng": 100.9925
+  }
+}
+
+### POST 3
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Hydro Tomato House",
+  "crop": "มะเขือเทศ",
+  "areaSize": "12.75",
+  "deviceCount": 18,
+  "sensorCount": 14,
+  "environment": {
+    "sunlight": "Greenhouse LED",
+    "temperature": "28°C",
+    "humidity": "78%",
+    "waterLevel": "90%"
+  },
+  "location": {
+    "lat": 13.7563,
+    "lng": 100.5018
+  }
+}
+
+### POST 4
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Sweet Mango Garden",
+  "crop": "มะม่วง",
+  "areaSize": "65.20",
+  "deviceCount": 10,
+  "sensorCount": 7,
+  "environment": {
+    "sunlight": "Outdoor",
+    "temperature": "34°C",
+    "humidity": "67%",
+    "waterLevel": "45%"
+  },
+  "location": {
+    "lat": 14.9799,
+    "lng": 102.0977
+  }
+}
+
+### POST 5
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Smart Lettuce Farm",
+  "crop": "ผักกาดหอม",
+  "areaSize": "8.30",
+  "deviceCount": 25,
+  "sensorCount": 20,
+  "environment": {
+    "sunlight": "Indoor LED",
+    "temperature": "24°C",
+    "humidity": "82%",
+    "waterLevel": "95%"
+  },
+  "location": {
+    "lat": 18.7883,
+    "lng": 98.9853
+  }
+}
+
+### POST 6
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Durian Premium Farm",
+  "crop": "ทุเรียน",
+  "areaSize": "120.00",
+  "deviceCount": 14,
+  "sensorCount": 11,
+  "environment": {
+    "sunlight": "Tropical Outdoor",
+    "temperature": "31°C",
+    "humidity": "88%",
+    "waterLevel": "70%"
+  },
+  "location": {
+    "lat": 12.6113,
+    "lng": 102.1038
+  }
+}
+
+### POST 7
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Coffee Mountain Farm",
+  "crop": "กาแฟอาราบิก้า",
+  "areaSize": "55.40",
+  "deviceCount": 16,
+  "sensorCount": 13,
+  "environment": {
+    "sunlight": "Mountain Shade",
+    "temperature": "22°C",
+    "humidity": "85%",
+    "waterLevel": "60%"
+  },
+  "location": {
+    "lat": 19.9105,
+    "lng": 99.8406
+  }
+}
+
+### POST 8
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Dragon Fruit Smart Farm",
+  "crop": "แก้วมังกร",
+  "areaSize": "30.25",
+  "deviceCount": 11,
+  "sensorCount": 9,
+  "environment": {
+    "sunlight": "Outdoor",
+    "temperature": "36°C",
+    "humidity": "58%",
+    "waterLevel": "50%"
+  },
+  "location": {
+    "lat": 13.3611,
+    "lng": 100.9847
+  }
+}
+
+### POST 9
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Banana IoT Farm",
+  "crop": "กล้วยน้ำว้า",
+  "areaSize": "48.90",
+  "deviceCount": 13,
+  "sensorCount": 10,
+  "environment": {
+    "sunlight": "Outdoor",
+    "temperature": "32°C",
+    "humidity": "76%",
+    "waterLevel": "65%"
+  },
+  "location": {
+    "lat": 7.9519,
+    "lng": 98.3381
+  }
+}
+
+### POST 10
+POST http://localhost:3000/api/postfarm
+Content-Type: application/json
+
+{
+  "farm_name": "Herbal Smart Greenhouse",
+  "crop": "โหระพา",
+  "areaSize": "6.80",
+  "deviceCount": 9,
+  "sensorCount": 6,
+  "environment": {
+    "sunlight": "Greenhouse",
+    "temperature": "27°C",
+    "humidity": "74%",
+    "waterLevel": "88%"
+  },
+  "location": {
+    "lat": 17.4138,
+    "lng": 102.7870
+  }
+}

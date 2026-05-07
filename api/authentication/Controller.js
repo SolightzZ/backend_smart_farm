@@ -42,6 +42,11 @@ class authController {
         user: {
           user_id: user.user_id,
           username: user.username,
+          lastname: user.lastname,
+          password: password,
+          role: user.role,
+          zone: user.zone,
+          phone: user.phone,
           email: user.email,
         },
         token,
@@ -142,6 +147,7 @@ class authController {
   }
 
   // ลงทะเบียน
+  // ลงทะเบียน
   async signup(req, res) {
     try {
       const { username, email, password } = req.body;
@@ -158,12 +164,29 @@ class authController {
         });
       }
 
+      // เช็ค email ซ้ำ
+      const exists = await db("users")
+        .where("email", email)
+        .orWhere("username", username)
+        .first();
+
+      if (exists) {
+        return res.status(409).json({
+          message: "username หรือ email ซ้ำ",
+        });
+      }
+
       const hash = await bcrypt.hash(password, 10);
 
       const [id] = await db("users").insert({
         username,
+        lastname: "",
         email,
+        phone: "",
+        role: "user",
+        zone: "",
         password: hash,
+        gender: "other",
       });
 
       return res.status(201).json({
@@ -171,16 +194,11 @@ class authController {
         user_id: id,
       });
     } catch (err) {
-      // handle unique constraint
-      if (err.code === "ER_DUP_ENTRY") {
-        return res.status(409).json({
-          message: "username หรือ email ซ้ำ",
-        });
-      }
-
       console.error("signup error:", err);
+
       return res.status(500).json({
-        message: "Internal server error",
+        message: err.message,
+        code: err.code,
       });
     }
   }

@@ -6,7 +6,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("products", (table) => {
     table.increments("product_id");
 
-    table.string("plantName").notNullable();
+    table.string("product_name").notNullable();
 
     table.decimal("quantity", 10, 2).notNullable();
     table.decimal("rai", 10, 2).notNullable();

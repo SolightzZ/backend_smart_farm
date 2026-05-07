@@ -1,0 +1,50 @@
+# ===========================
+# User
+# ===========================
+
+### GET Users All
+GET http://localhost:3000/api/users
+
+### GET User/id
+GET http://localhost:3000/api/users/2
+Content-Type: application/json
+
+{
+  "username": "admin3",
+}
+
+### POST Create User {}
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "admin3",
+  "email": "admin3@.com",
+  "password": "admin123",
+  "gender": "male",
+  "phone": "0800000001"
+}
+
+
+
+
+### PUT Update User/:id {}
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "lastname": "admin123",
+  "email": "admin@hotmail.com",
+  "phone": "12345678",
+  "role": "user",
+  "zone": "MRT",
+  "gender": "other"
+}
+
+
+### DELETE User/:id
+DELETE http://localhost:3000/api/users/14
+Content-Type: application/json
+### GET Users All
+GET http://localhost:3000/api/users

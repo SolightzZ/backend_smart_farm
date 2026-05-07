@@ -8,7 +8,15 @@ const http = `http://localhost:${port}`;
 const whitelist = [
   "http://localhost:3000",
   "http://localhost:3000/",
+  "http://192.168.31.118:3000",
   undefined,
+  "undefined",
+  "http://localhost:3200/",
+  "http://localhost:3200",
+  "http://26.1.72.222:3200/",
+  "http://26.1.72.222:3200",
+  "http://192.168.31.118:3200/",
+  "http://192.168.31.118:3200",
 ];
 
 const corsOptions = {

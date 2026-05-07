@@ -1,0 +1,116 @@
+# ===========================
+# Product
+# ===========================
+
+### GET
+GET http://localhost:3000/api/getproduct
+
+### POST 1
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "ข้าวหอมมะลิอินทรีย์",
+  "quantity": 500,
+  "rai": 45,
+  "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c"
+}
+
+### POST 2
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "ข้าวโพดหวาน",
+  "quantity": 1200,
+  "rai": 80,
+  "image": "https://images.unsplash.com/photo-1551754655-cd27e38d2076"
+}
+
+### POST 3
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "มะม่วงน้ำดอกไม้",
+  "quantity": 350,
+  "rai": 25,
+  "image": "https://images.unsplash.com/photo-1591073113125-e46713c829ed"
+}
+
+### POST 4
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "ทุเรียนหมอนทอง",
+  "quantity": 180,
+  "rai": 60,
+  "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=1200"
+}
+
+### POST 5
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "กล้วยน้ำว้า",
+  "quantity": 700,
+  "rai": 40,
+  "image": "https://images.unsplash.com/photo-1603833665858-e61d17a86224?q=80&w=1200"
+}
+
+### POST 6
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "มะเขือเทศไฮโดรโปนิกส์",
+  "quantity": 950,
+  "rai": 15,
+  "image": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337"
+}
+
+### POST 7
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "กาแฟอาราบิก้า",
+  "quantity": 260,
+  "rai": 35,
+  "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"
+}
+
+### POST 8
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "ผักกาดหอม",
+  "quantity": 1500,
+  "rai": 12,
+  "image": "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1"
+}
+
+### POST 9
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "แก้วมังกรแดง",
+  "quantity": 430,
+  "rai": 28,
+  "image": "https://images.unsplash.com/photo-1619566636858-adf3ef46400b"
+}
+
+### POST 10
+POST http://localhost:3000/api/postproduct
+Content-Type: application/json
+
+{
+  "product_name": "โหระพาออร์แกนิก",
+  "quantity": 820,
+  "rai": 10,
+  "image": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2"
+}

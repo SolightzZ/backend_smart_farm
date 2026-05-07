@@ -15,12 +15,7 @@ class dashboardController {
   // POST /dashboard - create
   async postCreateDashboard(req, res) {
     try {
-      const { dashboard_name, farm_id, temperature, humidity, ph } = req.body;
-      if (!dashboard_name) {
-        return res.status(400).json({
-          message: "กรอกข้อมูลไม่ครบ dashboard_name",
-        });
-      }
+      const { farm_id, farm_name, temperatures, humidity, ph } = req.body;
 
       if (!farm_id) {
         return res.status(400).json({
@@ -28,9 +23,15 @@ class dashboardController {
         });
       }
 
-      if (!temperature) {
+      if (!farm_name) {
         return res.status(400).json({
-          message: "กรอกข้อมูลไม่ครบ temperature",
+          message: "กรอกข้อมูลไม่ครบ farm_name",
+        });
+      }
+
+      if (!temperatures) {
+        return res.status(400).json({
+          message: "กรอกข้อมูลไม่ครบ temperatures",
         });
       }
 
@@ -47,15 +48,16 @@ class dashboardController {
       }
 
       const [id] = await db("dashboard").insert({
-        dashboard_name,
-        temperature,
+        farm_id,
+        farm_name,
+        temperatures,
         humidity,
         ph,
       });
 
       return res.status(201).json({
         success: true,
-        result: { id, dashboard_name, temperature, humidity, ph },
+        result: { id, farm_name, farm_id, temperatures, humidity, ph },
       });
     } catch (error) {
       if (error.code === "ER_DUP_ENTRY") {

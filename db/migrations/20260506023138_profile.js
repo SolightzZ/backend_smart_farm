@@ -19,7 +19,7 @@ exports.up = function (knex) {
     table.string("email").notNullable().unique();
     table.timestamp("registerDate").defaultTo(knex.fn.now());
     table.timestamp("lastActive").nullable();
-    table.string("avatar").nullable();
+
     table.timestamp("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
     table
       .timestamp("updated_at")

@@ -148,16 +148,19 @@ class userController {
   async putUpdateUser(req, res) {
     try {
       const { id } = req.params;
-      const { username, email } = req.body;
+
+      const { username, lastname, email, phone, role, zone, gender } = req.body;
 
       // เช็ค user มีจริงไหม
       const user = await db("users").where({ user_id: id }).first();
 
       if (!user) {
-        return res.status(404).json({ message: "ไม่พบ user" });
+        return res.status(404).json({
+          message: "ไม่พบ user",
+        });
       }
 
-      // เช็ค username ซ้ำ (แต่ไม่ใช่ตัวเอง)
+      // เช็ค username ซ้ำ
       if (username) {
         const existUsername = await db("users")
           .where({ username })
@@ -171,7 +174,7 @@ class userController {
         }
       }
 
-      // เช็ค email ซ้ำ (เหมือนกัน)
+      // เช็ค email ซ้ำ
       if (email) {
         const existEmail = await db("users")
           .where({ email })
@@ -185,23 +188,69 @@ class userController {
         }
       }
 
-      // update
-      await db("users")
-        .where({ user_id: id })
-        .update({
-          ...(username && { username }),
-          ...(email && { email }),
-        });
+      if (phone) {
+        // เช็ค phone ซ้ำ
+        if (phone) {
+          const existPhone = await db("users")
+            .where({ phone })
+            .whereNot({ user_id: id })
+            .first();
 
-      return res.json({ success: true });
-    } catch (err) {
-      if (err.code === "ER_DUP_ENTRY") {
-        return res.status(409).json({
-          message: "username หรือ email ซ้ำ",
+          if (existPhone) {
+            return res.status(409).json({
+              message: "phone นี้ถูกใช้แล้ว",
+            });
+          }
+        }
+      }
+
+      if (
+        gender &&
+        gender !== "male" &&
+        gender !== "female" &&
+        gender !== "other"
+      ) {
+        return res.status(400).json({
+          message: "gender ต้องเป็น male, female หรือ other",
         });
       }
-      console.err("Putupdateuser: ", err);
-      return res.status(500).json({ message: err.message });
+
+      if (role && role !== "user" && role !== "admin") {
+        return res.status(400).json({
+          message: "role ต้องเป็น user หรือ admin",
+        });
+      }
+
+      // update
+      await db("users").where({ user_id: id }).update({
+        username,
+        lastname,
+        email,
+        phone,
+        role,
+        zone,
+        gender,
+      });
+
+      return res.json({
+        success: true,
+        user_id: {
+          user_id: id,
+          username,
+          lastname,
+          email,
+          phone,
+          role,
+          zone,
+          gender,
+        },
+      });
+    } catch (err) {
+      console.error("putUpdateUser:", err);
+
+      return res.status(500).json({
+        message: err.message,
+      });
     }
   }
 

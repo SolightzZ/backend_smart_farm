@@ -1,0 +1,34 @@
+# ===========================
+# Profile
+# ===========================
+
+### GET 
+GET http://localhost:3000/api/getprofile
+
+### POST
+POST http://localhost:3000/api/postprofile
+Content-Type: application/json
+
+{
+  "firstName": "สมชาย",
+  "lastName": "ใจดี",
+  "gender": "male",
+  "role": "user",
+  "address": "123 หมู่ 4",
+  "phone": "0812345678",
+  "email": "somchai@example.com"
+}
+
+### PUT
+PUT http://localhost:3000/api/getprofile/1
+Content-Type: application/json
+
+{
+  "firstName": "Somchai",
+  "lastName": "Jaidee",
+  "gender": "male",
+  "role": "user",
+  "address": "99 ถนนสุขุมวิท แขวงคลองตัน เขตคลองเตย กรุงเทพมหานคร 10110",
+  "phone": "0812345678",
+  "email": "somchaijaidee@example.com"
+}
