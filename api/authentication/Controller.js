@@ -10,19 +10,22 @@ class authController {
 
       if (!username || !password) {
         return res.status(400).json({
+          success: false,
           message: "กรอกข้อมูลไม่ครบ",
         });
       }
 
       const user = await db("users").where({ username }).first();
 
-      // message เดียวกัน
+      // user not found
       if (!user) {
         return res.status(401).json({
+          success: false,
           message: "username หรือ password ไม่ถูกต้อง",
         });
       }
 
+      // compare hash
       const isMatch = await bcrypt.compare(
         username + password + user.email,
         user.password,
@@ -30,23 +33,29 @@ class authController {
 
       if (!isMatch) {
         return res.status(401).json({
+          success: false,
           message: "username หรือ password ไม่ถูกต้อง",
         });
       }
 
+      // create token
       const token = jwt.sign(
-        { user_id: user.user_id },
+        {
+          user_id: user.user_id,
+          role: user.role,
+        },
         process.env.JWT_SECRET,
-        { expiresIn: "1d" },
+        {
+          expiresIn: "1d",
+        },
       );
 
-      return res.json({
+      return res.status(200).json({
         success: true,
         user: {
           user_id: user.user_id,
           username: user.username,
           lastname: user.lastname,
-          password: password,
           role: user.role,
           zone: user.zone,
           phone: user.phone,
@@ -56,7 +65,9 @@ class authController {
       });
     } catch (err) {
       console.error("login error:", err);
+
       return res.status(500).json({
+        success: false,
         message: "Internal server error",
       });
     }
