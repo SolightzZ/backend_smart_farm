@@ -1,0 +1,954 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>เชื่อม Backend ไปที่ Fontend</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="348ee2f6-ab9b-8008-b787-f8421ef63fd0" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💻</span></div><h1 class="page-title" dir="auto">เชื่อม Backend ไปที่ Fontend</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="348ee2f6-ab9b-8041-b465-c6d4d20ab294" class="column-list"><div style="display:contents" dir="auto"><div id="348ee2f6-ab9b-80fc-a083-ea944c8999a9" style="width:50%" class="column"><div style="display:contents" dir="auto"><h2 id="348ee2f6-ab9b-80af-81d8-da384812cf8f" class="">Backend https</h2></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-80b6-9a1a-e93c5353c8fd" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">นำ apiSources.js มาเป็น api </span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-8017-b62f-cde739602041" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">สร้างเส้นเชื่อมให้ frontend </span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-8019-baf3-f223818073c8" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">สร้าง post ให้ frontend </span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-80fb-b1d7-e92ec24ed8ae" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ยิง api หา minipc ตาม IP RAdmin</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-802b-ab20-d48ee7c3c16a" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">เอามาส่งให้ Frontend รับข้อมูล</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-80f9-bd60-dec497e071a7" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ชื่อจังหวัด มาเป็น Static</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-806b-8b46-e98cb2c88531" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ชื่อรพ.สต มาเป็น Static</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-804b-9abc-e4433f871fae" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ทำเส้น API ให้ Frontend</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-8026-bf0b-f312cdd2ad8d" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ทำเส้น API ฟิวเตอร์ name, IP, province</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-80f3-9321-fdad20149907" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">เส้น API get drug </span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34aee2f6-ab9b-8045-87d8-ee13926a58b5" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">เส้น API get opd</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-8066-ba32-e247ff86d6ac" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">เส้น API get selector</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34bee2f6-ab9b-8084-880f-cbbe8e19d624" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">มีการทำ refactor หรือ Validate Code , Clean Code </span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><h4 id="350ee2f6-ab9b-800d-9c9e-dedc1617478d" class="">สิ่งที่ต้องแก้</h4></div><div style="display:contents" dir="auto"><ul id="350ee2f6-ab9b-80d7-bdeb-fcc1928855bb" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ภาพรวมยา รพ สต(ไม่สามารถโหลดข้อมูลจาก xxxx or 04252)</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="352ee2f6-ab9b-80f1-a711-f3c72e0b1d63"><a href="https://domain.z.com/th/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">โดเมนที่ถูกที่สุดในประเทศไทย ราคาเริ่มต้นที่ 50THB | Z.com Domain</div><div class="bookmark-description">.com .net .org .co.mm .online เริ่มต้นที่ 50 บาท โดเมนราคาถูกที่สุดในประเทศไทย รองรับภาษาไทยแผงควบคุมที่ใช้งานง่าย ไม่ต้องใช้บัตรเครดิต</div></div><div class="bookmark-href">https://domain.z.com/th/</div></div></a></figure></div><div style="display:contents" dir="ltr"><figure id="352ee2f6-ab9b-804b-ae88-cb7d662e1029"><a href="https://www.hostatom.com/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">บริการโฮสติ้งขั้นเทพเร็วแรงสุดด้วยประสบการณ์มากกว่า 10 ปี</div><div class="bookmark-description">hostatom บริการ Web Hosting, WordPress Hosting บน Server ประสิทธิภาพสูง ด้วยทีมงาน Network Engineer ที่ความรู้ความเชี่ยวชาญด้าน Web Hosting โดยเฉพาะ</div></div><div class="bookmark-href"><img src="https://www.hostatom.com/wp-content/uploads/2025/11/favicon-300x300.png" class="icon bookmark-icon"/>https://www.hostatom.com/</div></div><img src="https://www.hostatom.com/wp-content/uploads/2026/01/og-logo.png" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-8054-bd74-c6c69a42d9c2"><a href="https://vercel.com/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Vercel: Build and deploy the best web experiences with the AI Cloud</div><div class="bookmark-description">Vercel gives developers the frameworks, workflows, and infrastructure to build a faster, more personalized web.</div></div><div class="bookmark-href"><img src="https://assets.vercel.com/image/upload/q_auto/front/favicon/vercel/apple-touch-icon-256x256.png" class="icon bookmark-icon"/>https://vercel.com/</div></div><img src="https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/4JmubmYDJnFtstwHbaZPev/0c3576832aae5b1a4d98c8c9f98863c3/Vercel_Home_OG.png" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-8051-a1d4-dc328400bc9b"><a href="https://ngrok.com/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">ngrok: AI &amp; API Gateway | Secure Tunnels &amp; Traffic</div><div class="bookmark-description">ngrok is an AI and API gateway that securely routes, transforms, and observes traffic to services running anywhere—powering APIs, AI agents, and LLM workloads.</div></div><div class="bookmark-href"><img src="https://ngrok.com/assets/apple-touch-icon.png" class="icon bookmark-icon"/>https://ngrok.com/</div></div><img src="https://ngrok.com/assets/home/og-image.png" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-80a5-9e31-e5c26508869d"><a href="https://www.cloudflare.com/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Connect, protect, and build everywhere</div><div class="bookmark-description">Make employees, applications and networks faster and more secure everywhere, while reducing complexity and cost.</div></div><div class="bookmark-href"><img src="https://www.cloudflare.com/favicon.ico" class="icon bookmark-icon"/>https://www.cloudflare.com/</div></div><img src="https://cf-assets.www.cloudflare.com/dzlvafdwdttg/5hEMO0prBW3wDvchZU0iBZ/8e05bb4c55f8906e58d09dbc861c0f22/CF_logo_horizontal_singlecolor_wht.svg" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-80ab-b49c-cedacbd87a60"><a href="https://roadmap.sh/backend" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Backend Developer Roadmap: What is Backend Development</div><div class="bookmark-description">Step by step guide to becoming a modern backend developer in 2026</div></div><div class="bookmark-href"><img src="https://roadmap.sh/manifest/apple-touch-icon.png" class="icon bookmark-icon"/>https://roadmap.sh/backend</div></div><img src="https://roadmap.sh/og/roadmap/backend" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-806c-9e6d-f8942670bf58"><a href="https://roadmap.sh/api-design" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">API Design Roadmap</div><div class="bookmark-description">Step by step guide to learn how to design and build robust APIs.</div></div><div class="bookmark-href"><img src="https://roadmap.sh/manifest/apple-touch-icon.png" class="icon bookmark-icon"/>https://roadmap.sh/api-design</div></div><img src="https://roadmap.sh/og/roadmap/api-design" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="348ee2f6-ab9b-80ce-b465-fbcffa281b44" class=""><mark class="highlight-default"><mark class="highlight-teal_background"><strong>File folder </strong></mark></mark></h3></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="348ee2f6-ab9b-80e2-b732-f73b3c272503" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">package.json
+{
+  &quot;name&quot;: &quot;project_backend&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
+    &quot;dev&quot;: &quot;nodemon index.js&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;type&quot;: &quot;commonjs&quot;,
+  &quot;dependencies&quot;: {
+    &quot;cors&quot;: &quot;^2.8.6&quot;,
+    &quot;express&quot;: &quot;^5.2.1&quot;,
+    &quot;knex&quot;: &quot;^3.2.9&quot;,
+    &quot;mysql2&quot;: &quot;^3.22.1&quot;,
+    &quot;node-xlsx&quot;: &quot;^0.24.0&quot;,
+    &quot;nodemon&quot;: &quot;^3.1.14&quot;
+  }
+}
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-8092-8938-dbafc913506d" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">เริ่มต้นโปรเจค
+git clone repo.git
+
+เชื่อมต่อโปรเจคด้วย
+git remote add origin git@gitlab.com:SolightzZ/tests.git
+
+ติดตั้ง nodejs
+npm i
+
+สำหรับสร้างไฟล์  knexfile.js
+knex init
+
+ชื่อตารางฐานข้อมูล
+knex migrate:make 
+
+อัพเดทฐานข้อมูลทั้งหมด
+knex migrate:latest 
+
+ย้อนกลับฐานข้อมูลทั้งหมดที่ทำล่าสุด
+knex migrate:rollback
+
+อัพเดทข้อมูลเฉพาะใน up
+knex migrate:up
+
+อัพเดทข้อมูลเฉพาะใน down
+knex migrate:down</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-800a-8511-e192f9fff07c" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">knexfile.js
+module.exports = {
+  development: {
+    client: &quot;mysql2&quot;,
+    connection: {
+      host: &quot;127.0.0.1&quot;,
+      port: 3306,
+      user: &quot;root&quot;,
+      password: &quot;66040233122&quot;,
+      database: &quot;dashboard_money_summary&quot;,
+    },
+    migrations: {
+      directory: &quot;./db/migrations&quot;,
+    },
+    seeds: {
+      directory: &quot;./db/seeds&quot;,
+    },
+  },
+};
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-8028-ada7-f826c5edc4f6" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">// Update with your config settings.
+
+/**
+ * @type { Object.&lt;string, import(&quot;knex&quot;).Knex.Config&gt; }
+ */
+module.exports = {
+  development: {
+    client: &quot;mysql2&quot;,
+    connection: {
+      host: &quot;127.0.0.1&quot;,
+      port: 3306,
+      user: &quot;root&quot;,
+      password: &quot;66040233122&quot;,
+      database: &quot;&quot;,
+    },
+  },
+
+  migrations: {
+    directory: &quot;./db/migrations&quot;,
+  },
+
+  seeds: {
+    directory: &quot;./db/seeds&quot;,
+  },
+};
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-807b-9740-e6cae02d1b5d" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">index.js
+
+const express = require(&quot;express&quot;);
+const app = express();
+const port = 3000;
+
+const create_api = require(&quot;./api/service&quot;)
+create_api(app)
+
+app.listen(port, () =&gt; {
+  console.log(`Example app listening on port ${port}`);
+});</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-809b-98ce-cb32d6e95bf5" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">service.js
+
+const user = require(&quot;./user/Routes&quot;);
+const excel = require(&quot;./excel/Routes&quot;);
+module.exports = (app) =&gt; {
+  app.use(&quot;/api&quot;, user);
+  app.use(&quot;/api&quot;, excel);
+};
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-806f-8371-ef8390124e5e" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Routes.js 
+
+const { Router } = require(&quot;express&quot;);
+const router = Router();
+
+const userController = require(&quot;./controller&quot;);
+
+router.get(&quot;/users&quot;, userController.getUsers);
+router.get(&quot;/users/:id&quot;, userController.getUser);
+router.post(&quot;/users&quot;, userController.createUser);
+router.put(&quot;/users/:id&quot;, userController.updateUser);
+router.delete(&quot;/users/:id&quot;, userController.deleteUser);
+
+module.exports = router;
+
+
+
+api\excel\Routes.js
+
+const { Router } = require(&quot;express&quot;);
+const router = Router();
+
+const excel = require(&quot;./Controller&quot;);
+router.get(&quot;/excel&quot;, excel.importExcel);
+
+module.exports = router;
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-8068-b176-ef683705f912" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">db\migrations\20260420064822_db_money_summary.js
+
+20260420064822_db_money_summary.js
+exports.up = function (knex) {
+  return knex.schema.createTable(&quot;users&quot;, (table) =&gt; {
+    table.increments(&quot;id&quot;).primary();
+    table.string(&quot;name&quot;);
+    table.string(&quot;email&quot;).unique();
+    table.timestamps(true, true);
+  });
+};
+
+
+exports.down = function (knex) {
+  return knex.schema.dropTable(&quot;users&quot;);
+};
+</code></pre></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-8047-b6f7-d1f1a21e2398" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">.gitignore
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+package-lock.json
+eslint.config.js
+README.md
+knexfile.js
+</code></pre></div><div style="display:contents" dir="auto"><h4 id="348ee2f6-ab9b-8069-beef-c8860bdc9811" class=""><strong>Simple Type-Based Structure (Small Projects) </strong></h4></div><div style="display:contents" dir="auto"><pre id="348ee2f6-ab9b-807d-8546-c1af8a5fc087" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">/backend (หรือ /root)
+  ├── /api
+  │   ├── /user
+  │   │   ├── controller.js   # จัดการ logic ของ user
+  │   │   └── routes.js       # กำหนด endpoint /api/user
+  │   ├── /file
+  │   │   ├── controller.js
+  │   │   └── routes.js
+  │   └── /excel
+  │       ├── controller.js
+  │       └── routes.js
+  ├── /db
+  │   ├── /migrations         # ไฟล์สร้าง/แก้ไข Table (เช่น 2023_create_users.js)
+  │   ├── /seeds              # ไฟล์เพิ่มข้อมูลตัวอย่าง
+  │   └── db-config.js        # ไฟล์เชื่อมต่อ Knex กับ Database
+  ├── index.js                # ไฟล์เริ่มต้น (Express Server)
+  ├── service.js              # Business Logic กลาง (ถ้ามี)
+  ├── knexfile.js             # Configuration ของ Knex (Dev/Prod)
+  ├── nodemon.json            # ตั้งค่าการ restart server
+  └── package.json
+</code></pre></div><div style="display:contents" dir="ltr"><figure id="349ee2f6-ab9b-809e-860e-c9bc725396d7" class="image"><a href="image.png"><img style="width:707.75px" src="image.png"/></a></figure></div><div style="display:contents" dir="auto"><pre id="34aee2f6-ab9b-80ed-9ea8-ccf70d143468" class="code code-wrap"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">  /backend (หรือ /root)
+  ├── /drug_category_data
+	│	  ├── /Controller.js
+	│	  ├──  /Routes.js
+	├── /get_opd_all
+			  ├── /Controller.js
+		    ├── /Routes.js</code></pre></div></div></div><div style="display:contents" dir="auto"><div id="348ee2f6-ab9b-80ad-b033-e15f0625831c" style="width:50%" class="column"><div style="display:contents" dir="auto"><h2 id="348ee2f6-ab9b-80bc-bcbb-c99fec0fa806" class="">Frontend http</h2></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-8086-8d8f-e7eeabe44aaa" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">apiSources.js</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-80dd-9188-d959146a0753" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">เชื่อมเข้ากับ Backend</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="348ee2f6-ab9b-8010-a5b9-ddf43c545ae3" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">จัด UI</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-80f4-a0e1-f945c866b184" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ภาพรวมยาของ รพ.สต. ดึงข้อมูลจากหลาย API และแสดง hcode, hname, genericname, dosageform, ndc24</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-804d-82e6-d4b4383dd571" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked"><strong>ตัวกรองข้อมูล (จังหวัด รพสต ค้นหา แสดงเฉพาะยาที่ติด c รหัสยา HIS ไม่ซ้ำ วันที่เริ่มต้น วันที่สิ้นสุด)</strong></span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-800e-95ae-d26236dfc00d" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">จำนวนรายการยา .length</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-80c1-bbd9-f4a928728d33" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">จำนวน รพ.สต .length</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-8039-946d-c6948a89a8f5" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">รายการจาก Drug Catalog (ชื่อ รพ.สต. จังหวัด ชื่อยา รหัสยา Drugcat รหัสยา 24 หลัก หน่วยบรรจุ)</span><div class="indented"></div></li></ul></div><div style="display:contents" dir="auto"><ul id="34fee2f6-ab9b-80b3-be65-f40810b8b09d" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked"><strong>รายการจ่ายยา 16 แฟ้ม (HCODE รหัสยา HIS) กดเข้าไปจะเป็น(รายละเอียดการให้บริการ [เลขบัตรประชาชน, ชื่อ, อาการวินิจฉัย, วันที่รับบริการ, สิทธิ์การรักษา, HN])</strong></span><div class="indented"></div></li></ul></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-808c-b79c-f5a930636fe6"><a href="https://antigravity.google/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Google Antigravity</div><div class="bookmark-description">Google Antigravity - Build the new way</div></div><div class="bookmark-href"><img src="https://antigravity.google/favicon.ico" class="icon bookmark-icon"/>https://antigravity.google/</div></div><img src="https://antigravity.google/assets/image/sitecards/sitecard-default.png" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-8051-a6ad-d18cd18d804e"><a href="https://docs.mikelopster.dev/c/web101/intro" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Web development 101 | Mikelopster docs</div><div class="bookmark-description">บทเรียนสำหรับคนที่สนใจเริ่มต้นเขียนเว็บ และกำลังหาแนวทางศึกษาเว็บ (แนะนำให้ดูเป็นฉบับวิดีโอก่อนอ่านเอกสาร เพื่อให้เกิดความเข้าใจที่ถ่องแท้ยิ่งขึ้น)</div></div><div class="bookmark-href"><img src="https://docs.mikelopster.dev/img/mikelopster.ico" class="icon bookmark-icon"/>https://docs.mikelopster.dev/c/web101/intro</div></div></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-809e-9a95-dae12b4ac15d"><a href="https://roadmap.sh/react" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">React Developer Roadmap: Learn to become a React developer</div><div class="bookmark-description">Everything that is there to learn about React and the ecosystem in 2026.</div></div><div class="bookmark-href"><img src="https://roadmap.sh/manifest/apple-touch-icon.png" class="icon bookmark-icon"/>https://roadmap.sh/react</div></div><img src="https://roadmap.sh/og/roadmap/react" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-8037-8041-e48c6ceb8280"><a href="https://design.dev/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Design.dev — Web Design &amp; Development Resources</div><div class="bookmark-description">Web Design &amp; Development Resources. Code generators, cheat sheets, and resources to boost productivity.</div></div><div class="bookmark-href"><img src="https://design.dev/assets/img/logo.svg" class="icon bookmark-icon"/>https://design.dev/</div></div><img src="https://design.dev/assets/img/social-og.jpg" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-8078-bc75-fabd6a986250"><a href="https://mui.com/material-ui/all-components/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Material UI components - Material UI</div><div class="bookmark-description">Every Material UI component available so far.</div></div><div class="bookmark-href"><img src="https://mui.com/static/icons/180x180.png" class="icon bookmark-icon"/>https://mui.com/material-ui/all-components/</div></div><img src="https://mui.com/edge-functions/og-image?product=Material UI&amp;title=Material UI components&amp;description=Every Material UI component available so far." class="bookmark-image"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="34aee2f6-ab9b-80da-8543-ff6843284427"><a href="https://roadmap.sh/frontend" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Frontend Developer Roadmap: What is Frontend Development?</div><div class="bookmark-description">Step by step guide to becoming a modern frontend developer in 2026</div></div><div class="bookmark-href"><img src="https://roadmap.sh/manifest/apple-touch-icon.png" class="icon bookmark-icon"/>https://roadmap.sh/frontend</div></div><img src="https://roadmap.sh/og/roadmap/frontend" class="bookmark-image"/></a></figure></div><div style="display:contents" dir="auto"><p id="34aee2f6-ab9b-8048-8f54-ddd52e502a07" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><p id="349ee2f6-ab9b-801e-877c-c562175ad7d3" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
