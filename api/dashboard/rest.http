@@ -1,0 +1,19 @@
+
+# ===========================
+# Dashboards
+# =========================== 
+### GET 
+GET http://localhost:3000/api/getdashboards
+
+
+### POST
+POST http://localhost:3000/api/postdashboards
+Content-Type: application/json
+
+{
+  "farm_id": "1",
+  "farm_name": "test",
+  "temperatures": "-10",
+  "humidity":"-10",
+  "ph": "-10"
+}

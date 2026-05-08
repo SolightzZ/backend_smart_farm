@@ -2,51 +2,6 @@ const bcrypt = require("bcrypt");
 const db = require("../db");
 
 class userController {
-  // GET /users/:id
-  async getUser(req, res) {
-    try {
-      const { id } = req.params;
-
-      // validate id
-      const userId = Number(id);
-      if (!Number.isInteger(userId) || userId <= 0) {
-        return res.status(400).json({
-          message: "Invalid user id",
-        });
-      }
-
-      // query ก่อน (ให้ 404 มาก่อน)
-      const user = await db("users").where({ user_id: userId }).first();
-
-      if (!user) {
-        return res.status(404).json({
-          message: "ไม่พบ user",
-        });
-      }
-
-      // ownership check
-      if (req.user.user_id !== userId) {
-        return res.status(403).json({
-          message: "Forbidden",
-        });
-      }
-
-      // sanitize
-      const { password, ...safeUser } = user;
-
-      return res.json({
-        success: true,
-        result: safeUser,
-      });
-    } catch (err) {
-      console.error("getUser error:", err);
-      return res.status(500).json({
-        success: false,
-        message: "Internal server error",
-      });
-    }
-  }
-
   // GET /users - all
   async getUsers(req, res) {
     try {
@@ -58,6 +13,49 @@ class userController {
     } catch (err) {
       console.err("Getusers: ", err);
       return res.status(500).json({ message: err.message });
+    }
+  }
+
+  // GET /users/:id
+  async getUser(req, res) {
+    try {
+      const { id } = req.params;
+
+      // validate id
+      const userId = Number(id);
+
+      if (!Number.isInteger(userId) || userId <= 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid user id",
+        });
+      }
+
+      // query user
+      const user = await db("users").where({ user_id: userId }).first();
+
+      // not found
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+
+      // remove password
+      const { password, ...safeUser } = user;
+
+      return res.status(200).json({
+        success: true,
+        result: safeUser,
+      });
+    } catch (err) {
+      console.error("getUser error:", err);
+
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
     }
   }
 
@@ -112,7 +110,7 @@ class userController {
         });
       }
 
-      const hashpassword = await bcrypt.hash(password, 10);
+      const hashpassword = await bcrypt.hash(username + password + email, 10);
       const [id] = await db("users").insert({
         username,
         email,
@@ -257,38 +255,37 @@ class userController {
   // DELETE /users/:id
   async deleteUser(req, res) {
     try {
-      const { id } = req.params;
+      const userId = Number(req.params.id);
 
       // validate id
-      const userId = Number(id);
       if (!Number.isInteger(userId) || userId <= 0) {
         return res.status(400).json({
+          success: false,
           message: "Invalid user id",
         });
       }
 
-      // ownership check
-      if (req.user.user_id !== userId) {
-        return res.status(403).json({
-          message: "Forbidden",
-        });
-      }
+      // check user exists
+      const user = await db("users").where({ user_id: userId }).first();
 
-      // delete
-      const deleted = await db("users").where({ user_id: userId }).del();
-
-      // check result
-      if (!deleted) {
+      if (!user) {
         return res.status(404).json({
-          message: "ไม่พบ user",
+          success: false,
+          message: "User not found",
         });
       }
 
-      return res.json({
+      // delete user
+      await db("users").where({ user_id: userId }).del();
+
+      return res.status(200).json({
         success: true,
+        message: "User deleted successfully",
+        result: { user_id: userId, username: user.username },
       });
     } catch (err) {
       console.error("deleteUser error:", err);
+
       return res.status(500).json({
         success: false,
         message: "Internal server error",

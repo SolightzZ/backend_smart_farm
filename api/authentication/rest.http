@@ -1,0 +1,35 @@
+
+
+# ===========================
+# Authentication 
+# ===========================
+
+### Auth Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username":  "admin",
+    "password": "admin123"
+}
+
+#### Signup
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@hotmail.com",
+  "password": "admin123"
+}
+
+
+### Change password
+PUT http://localhost:3000/api/auth/change-password/16
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaWF0IjoxNzc3OTczNjI2LCJleHAiOjE3NzgwNjAwMjZ9.Hn4sBul8GCEScLJQomEuFsGJxGdfYYiWDIJ9663V8u4
+Content-Type: application/json
+
+{
+  "old_password": "123456",
+  "new_password": "123456"
+}

@@ -6,23 +6,19 @@
 GET http://localhost:3000/api/users
 
 ### GET User/id
-GET http://localhost:3000/api/users/2
+GET http://localhost:3000/api/users/1
 Content-Type: application/json
-
-{
-  "username": "admin3",
-}
 
 ### POST Create User {}
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "username": "admin3",
-  "email": "admin3@.com",
+  "username": "admin",
+  "email": "admin@.com",
   "password": "admin123",
   "gender": "male",
-  "phone": "0800000001"
+  "phone": "08000000011"
 }
 
 
@@ -44,7 +40,5 @@ Content-Type: application/json
 
 
 ### DELETE User/:id
-DELETE http://localhost:3000/api/users/14
+DELETE http://localhost:3000/api/users/2
 Content-Type: application/json
-### GET Users All
-GET http://localhost:3000/api/users

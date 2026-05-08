@@ -23,7 +23,10 @@ class authController {
         });
       }
 
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(
+        username + password + user.email,
+        user.password,
+      );
 
       if (!isMatch) {
         return res.status(401).json({
